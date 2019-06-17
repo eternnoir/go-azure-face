@@ -94,3 +94,10 @@ type Candidate struct {
 	PersonID   string  `json:"personId"`
 	Confidence float64 `json:"confidence"`
 }
+
+type PersonGroupPersonGetResp struct {
+	PersonId         string   `json:"personId"`
+	PersistedFaceIds []string `json:"persistedFaceIds"`
+	Name             string   `json:"name"`
+	UserData         string   `json:"userData"`
+}

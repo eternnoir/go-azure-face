@@ -172,6 +172,22 @@ func (f *Face) PersonGroupPersonAddFace(personGroupId, personId string, userData
 	return err
 }
 
+func (f *Face) PersonGroupPersonGet(personGroupId, personId string) (*params.PersonGroupPersonGetResp, error) {
+	ro := &grequests.RequestOptions{
+		Headers: map[string]string{"Ocp-Apim-Subscription-Key": f.apiKey},
+	}
+	resp, err := grequests.Get(fmt.Sprintf("%s/%s/%s/%s/%s", f.apiURL, apiPersonGroups, personGroupId, "persons", personId), ro)
+	if err != nil {
+		return nil, err
+	}
+	var ret params.PersonGroupPersonGetResp
+	_, err = checkResp(resp, &ret)
+	if err != nil {
+		return nil, err
+	}
+	return &ret, nil
+}
+
 func checkResp(reqresp *grequests.Response, resp interface{}) (interface{}, error) {
 	if !reqresp.Ok {
 		var apierr ApiError
